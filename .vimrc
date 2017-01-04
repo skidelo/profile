@@ -14,13 +14,13 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " ---------------
+Plugin 'chiel92/vim-autoformat'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'Yggdroot/indentLine'
-Plugin 'tell-k/vim-autopep8'
+" Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -74,9 +74,14 @@ imap jk <Esc>
 " Map <leader>g to go to definition/declaration (YouCompleteMe plugin)
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <leader>r  :YcmCompleter GoToReferences<CR>
+map <leader>d  :YcmCompleter GetDoc<CR>
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+
+" Auto-format file (needs a language specific formatter)
+noremap <F3> :Autoformat<CR>
+let g:autoformat_verbosemode=1
 
 " ------------Start Python PEP 8 stuff----------------
 " Number of spaces that a pre-existing tab is equal to.
@@ -122,7 +127,7 @@ au FileType python set listchars=tab:▸.
 
 " show indents with lines
 let g:indentLine_enabled = 0
-map <leader>l :IndentLinesToggle<CR>
+map <leader>i :IndentLinesToggle<CR>
 
 " Folding based on indentation:
 " use space to open folds
@@ -144,6 +149,11 @@ autocmd FileType python :call tagbar#autoopen(1)
 
 " Insert docstring templet
 nmap <silent> <C-_> <Plug>(pydocstring)
+
+" Switch to last active tabe with '<Leader>l'
+let g:lasttab = 1
+nmap <Leader>l :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 " Enable highlight and incramental search
 set incsearch

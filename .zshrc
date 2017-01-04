@@ -62,6 +62,11 @@ if [[ -e ~/.zsh_aliases ]]; then
   source ~/.zsh_aliases
 fi
 
+# Set dir colors
+if [[ -e ~/.dir_colors ]]; then
+  eval `dircolors ~/.dir_colors`
+fi
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

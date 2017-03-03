@@ -9,28 +9,32 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-sensible'
 " ---UltiSnips---
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " ---------------
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'chiel92/vim-autoformat'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'scrooloose/syntastic'
 Plugin 'ntpeters/vim-better-whitespace'
+" Show | lines on indents
 Plugin 'Yggdroot/indentLine'
-" Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'majutsushi/tagbar'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'heavenshell/vim-pydocstring'
+Plugin 'jiangmiao/auto-pairs'
 " Colorschemes
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,7 +67,7 @@ let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 " Enable mouse
-set mouse=a
+set mouse=i
 
 " Set leader key to <space>
 let mapleader=" "
@@ -71,29 +75,21 @@ let mapleader=" "
 " Map <Esc> to 'jk' for insert mode
 imap jk <Esc>
 
+let g:python_pep8_indent_multiline_string = 1
+
 " Map <leader>g to go to definition/declaration (YouCompleteMe plugin)
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <leader>r  :YcmCompleter GoToReferences<CR>
 map <leader>d  :YcmCompleter GetDoc<CR>
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+" let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 
 " Auto-format file (needs a language specific formatter)
 noremap <F3> :Autoformat<CR>
 let g:autoformat_verbosemode=1
 
-" ------------Start Python PEP 8 stuff----------------
-" Number of spaces that a pre-existing tab is equal to.
-au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
-
-" spaces for indents
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw set expandtab
-au BufRead,BufNewFile *.py set softtabstop=4
-
-" Wrap text after a certain number of characters
-au BufRead,BufNewFile *.py,*.pyw, set textwidth=79
+syntax on
 
 " Use UNIX (\n) line endings.
 au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
@@ -101,7 +97,7 @@ au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
 " Set the default file encoding to UTF-8:
 set encoding=utf-8
 
-" syntax checking for python
+" syntax checking
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -110,20 +106,6 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
-
-" For full syntax highlighting:
-autocmd BufRead,BufNewFile *.py let python_highlight_all=1
-syntax on
-
-" Keep indentation level from previous line:
-autocmd FileType python set autoindent
-
-" make backspaces more powerfull
-set backspace=indent,eol,start
-
-" show tabs
-au FileType python set list
-au FileType python set listchars=tab:▸.
 
 " show indents with lines
 let g:indentLine_enabled = 0
@@ -135,17 +117,16 @@ set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
-" ----------Stop python PEP 8 stuff--------------
+"
 " Nerdtree file browsing
 " ignore .pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
 " Bind NERDTree toggle to <leader>n
-map <leader>n :NERDTreeTabsToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
+
 
 " Toggle tagbar
 nmap <leader>t :TagbarToggle<CR>
-" Auto open tagbar
-autocmd FileType python :call tagbar#autoopen(1)
 
 " Insert docstring templet
 nmap <silent> <C-_> <Plug>(pydocstring)
@@ -154,10 +135,6 @@ nmap <silent> <C-_> <Plug>(pydocstring)
 let g:lasttab = 1
 nmap <Leader>l :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
-" Enable highlight and incramental search
-set incsearch
-set hlsearch
 
 " show line numbers
 set number
@@ -168,11 +145,27 @@ set showmatch
 " Highlight cursor line
 set cursorline
 
-" pretty auto-complete for vim commands
-set wildmenu
+" Highlight search matches
+set hlsearch
+
+" Autoread external file changes
+set autoread
+:au BufEnter,BufWinEnter,CursorHold filename :checktime
 
 " use system clipboard too
 set clipboard=unnamed
+
+" Be more liberal with hidden buffers
+set hidden
+
+" BASH like tab complete
+set wildmode=longest,list
+
+" auto-pairs config
+" enable/disable auto-pairs
+execute "set <M-p>=\ep"
+nnoremap <M-p> p
+
 
 " Change split navigation
 nnoremap <C-j> <C-W><C-J>
@@ -181,7 +174,6 @@ nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 
 " Auto change CWD to currently open file
-" autocmd BufEnter * silent! lcd %:p:h
 set autochdir
 
 " Split to the right/bottom
@@ -194,3 +186,6 @@ set autochdir
 " set background=dark
 " colorscheme solarized
 colorscheme zenburn
+
+" Update cscope DB- required env var: CSCOPE_DIR to be defined
+map <F5> :!cd $CSCOPE_DIR && cscope -bqR<CR>:cs reset<CR><CR>

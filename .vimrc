@@ -14,6 +14,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " ---------------
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'chiel92/vim-autoformat'
@@ -30,7 +31,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'majutsushi/tagbar'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'heavenshell/vim-pydocstring'
-Plugin 'jiangmiao/auto-pairs'
+"Plugin 'jiangmiao/auto-pairs' "Matching pairs (){}, etc.
 " Colorschemes
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
@@ -120,7 +121,7 @@ let g:SimpylFold_docstring_preview=1
 "
 " Nerdtree file browsing
 " ignore .pyc files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$']
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.o', '\.d']
 " Bind NERDTree toggle to <leader>n
 map <leader>n :NERDTreeToggle<CR>
 

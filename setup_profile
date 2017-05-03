@@ -1,0 +1,30 @@
+#!/bin/bash
+# Move tmux/vim, etc. script to home dir
+find . .* -maxdepth 0 -type f -exec cp '{}' ~/ \;
+# Get ZSH shell
+sudo apt-get install zsh
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Use my .zshrc setup rather than default
+mv .zshrc.pre-oh-my-zsh .zshrc
+# Install powerline fonts
+wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
+mkdir -p ~/.fonts/ && mv PowerlineSymbols.otf ~/.fonts/
+fc-cache -vf ~/.fonts
+mkdir -p ~/.config/fontconfig/conf.d/ && mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+# Ensure vim is installed
+sudo apt-get install vim
+# Ensure git is installed
+sudo apt-get install git
+# Install Vundle
+mkdir -p ~/.vim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+# Install powerline (for tmux)
+pip install --user powerline-status
+# Setup solorized theme for shell
+git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
+cd gnome-terminal-colors-solarized
+./install.sh -s dark --install-dircolors
+cd .. && rm -rf gnome-terminal-colors-solarized
+echo "Don't forget to set Font to Meslo in terminal settings!"

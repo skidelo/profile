@@ -63,8 +63,8 @@ if [[ -e ~/.zsh_aliases ]]; then
 fi
 
 # Set dir colors
-if [[ -e ~/.dir_colors ]]; then
-  eval `dircolors ~/.dir_colors`
+if [[ -e ~/.dir_colors/dircolors ]]; then
+  eval `dircolors ~/.dir_colors/dircolors`
 fi
 
 # User configuration

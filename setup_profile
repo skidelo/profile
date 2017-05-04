@@ -3,12 +3,6 @@
 find . .* -maxdepth 0 -type f -exec cp '{}' ~/ \;
 # Get ZSH shell
 sudo apt-get install zsh
-# Install curl
-sudo apt-get install curl
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-# Use my .zshrc setup rather than default
-mv .zshrc.pre-oh-my-zsh .zshrc
 # Install powerline fonts
 git clone https://github.com/powerline/fonts.git
 cd fonts
@@ -38,4 +32,11 @@ git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
 cd gnome-terminal-colors-solarized
 ./install.sh -s dark --install-dircolors
 cd .. && rm -rf gnome-terminal-colors-solarized
+# Install curl
+sudo apt-get install curl
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Use my .zshrc setup rather than default
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+source ~/.zshrc
 echo "Don't forget to set Font to Meslo in terminal settings!"

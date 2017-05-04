@@ -16,6 +16,7 @@ Plugin 'honza/vim-snippets'
 " ---------------
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'szw/vim-tags'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'chiel92/vim-autoformat'
 Plugin 'tmhedberg/SimpylFold'
@@ -166,7 +167,6 @@ set wildmode=longest,list
 " enable/disable auto-pairs
 execute "set <M-p>=\ep"
 nnoremap <M-p> p
-
 
 " Change split navigation
 nnoremap <C-j> <C-W><C-J>

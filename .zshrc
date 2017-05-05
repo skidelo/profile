@@ -52,7 +52,7 @@ DEFAULT_USER=`whoami`
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+# plugins=(git vi-mode)
 
 # Change vi ESC to 'jk'
 bindkey -M viins 'jk' vi-cmd-mode

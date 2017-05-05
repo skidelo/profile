@@ -15,7 +15,7 @@ mkdir -p ~/.fonts/ && mv PowerlineSymbols.otf ~/.fonts/
 fc-cache -vf ~/.fonts
 mkdir -p ~/.config/fontconfig/conf.d/ && mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 # Ensure vim is installed
-sudo apt-get install vim
+sudo apt-get install vim-gnome
 # Install ctags
 sudo apt-get install exuberant-ctags
 # Install Vundle
@@ -27,6 +27,13 @@ sudo apt-get install python-pip
 pip install --upgrade pip
 # Install powerline (for tmux)
 pip install --user powerline-status
+# Install TMUX
+sudo apt-get install tmux
+# Install xsel (needed for copy/paste tmux plugin)
+sudo apt-get install xsel
+# Install tmux plugin manager and get plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+~/.tmux/plugins/tpm/bin/install_plugins
 # Setup solorized theme for shell
 git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
 cd gnome-terminal-colors-solarized

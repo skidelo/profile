@@ -4,6 +4,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+#Determine OS
+if [[ "`uname -a`" =~ "Darwin" ]]; then
+	OS=OSX
+else
+	OS=Linux
+fi
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -62,9 +69,20 @@ if [[ -e ~/.zsh_aliases ]]; then
   source ~/.zsh_aliases
 fi
 
+# Source system specific profile if it exists
+if [[ -e ~/.profile ]]; then
+  source ~/.profile
+fi
+
 # Set dir colors
-if [[ -e ~/.dir_colors/dircolors ]]; then
-  eval `dircolors ~/.dir_colors/dircolors`
+if [[ -e ~/.dir_colors ]]; then
+  if [[ $OS == "OSX" ]]; then
+    #gdircolors installed with 'brew install coreutils'
+    eval `gdircolors ~/.dir_colors`
+    alias ls='gls --color=auto'
+  else
+    eval `dircolors ~/.dir_colors`
+  fi
 fi
 
 # User configuration

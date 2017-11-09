@@ -155,7 +155,7 @@ set autoread
 :au BufEnter,BufWinEnter,CursorHold filename :checktime
 
 " use system clipboard too
-set clipboard=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 " Be more liberal with hidden buffers
 set hidden

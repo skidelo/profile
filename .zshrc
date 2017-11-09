@@ -85,6 +85,23 @@ if [[ -e ~/.dir_colors ]]; then
   fi
 fi
 
+if [[ $1 == "brew_install" ]]; then
+	brew_install
+fi
+
+function brew_install {
+	brew install python
+	brew install vim --with-override-system-vi
+	brew install coreutils
+}
+
+# Homebrew stuff
+# Assumes homebrew is installed
+if [[ $os == "OSX" ]]; then
+    # set python to use homebrew for macos
+    export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+fi
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
